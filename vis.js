@@ -365,7 +365,13 @@ function rsvpForce(meetup) {
       nodes.push(d);
     })
   
-  enter.append("img")
+  enter
+    .append("a")
+    .attr({
+      href: getMember(function(d) { return "http://www.meetup.com/Bay-Area-d3-User-Group/members/" + d.id }),
+      target: "_blank"
+    })
+    .append("img")
   .attr({
     src: getMember(function(d) { return baseAvatarUrl + d.avatar }),
     width: avatarWidth,
