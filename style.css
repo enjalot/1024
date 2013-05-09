@@ -90,14 +90,16 @@ div.node {
   margin-top: 20px;
   border-top: 1px solid purple;
   padding-top: 19px;
-  z-index: 999
+  z-index: 999;
+  padding:20px;
 }
 
 .fixed {
   position: fixed;
-  bottom: 20px;
+  bottom: 0px;
   left: 920px;
-  background: rgba(244, 244,244, 0.8)
+  background: rgba(244, 244,244, 0.8);
+  padding:20px;
 }
 
 .day {
@@ -109,10 +111,12 @@ div.node {
 .day span {
   position:absolute;
   left: 920px;
+  display:none;
 }
 .day:hover {
   background: rgba(255, 255, 255, 0.7);
 }
-.day:hover {
+.day:hover span {
   color: black;
+  display:block;
 }
