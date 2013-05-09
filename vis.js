@@ -17,7 +17,7 @@ var width = d3.select("#display").node().clientWidth
 var height = d3.select("#display").node().clientHeight
 var timelineHeight = 100;
 
-var target = {x: 900, y: height/2};
+var target = {x: 1000, y: height/2};
 
 
 
@@ -251,7 +251,7 @@ function scroller() {
   var y1 = timeScale.invert(scroll + height);//calculate a screen's worth of height
   var filtered = memberDims.joined.filter([y0, y1]).top(Infinity)
     
-  target = {y: scroll + height/2}
+  //target = {y: scroll + height/2}
   
   var faces = bardiv.selectAll(".face")
   .data(filtered, function(d) { return d.id })
@@ -280,11 +280,11 @@ var radius = d3.scale.sqrt().range([4, 9]);
 var padding = 6;
 
 var force = d3.layout.force()
-  .size([900, height])
+  .size([target.x, visHeight])
   .nodes(nodes)
-  .gravity(0.0968)
-  .charge(0.65712)
-  .friction(0.0503442944)
+  .gravity(0.0001)
+  .charge(getMember(function(d){ return d.radius * 3}))
+  .friction(0.803442944)
   .on("tick", tick)
   .start();
   
@@ -298,10 +298,10 @@ function getMember(f) {
 function tick(e) {
   var k = 0.01;
   function anchor(d,i) {
-    var my = timeScale(meetupsDict[activeMeetup].time) + 150
+    var my = timeScale(meetupsDict[activeMeetup].time)
     if(!my) return;
     nodes.forEach(function(o, i) {
-      o.x += (width - 100 - o.x) * e.alpha * k;
+      o.x += (target.x - o.x) * e.alpha * k;
       o.y += (my - o.y) * e.alpha * k;
     });
   }
