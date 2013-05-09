@@ -95,8 +95,9 @@ var display = d3.select("#display")
 //calculate our intended height
 var visHeight = membersByDay.length * (rectHeight + rectSpace);
 
+var aLittleLessThanADay = 22*60*60*1000;
 var timeScale = d3.time.scale()
-  .domain([firstMember.joined-22*60*60 *1000, lastMember.joined])
+  .domain([firstMember.joined-aLittleLessThanADay, lastMember.joined ])
   .range([0, visHeight])
   
 var mbdExtent = d3.extent(membersByDay, function(d) { return d.value })
@@ -123,7 +124,7 @@ fixie.selectAll(".day")
   })
 .on("mouseover", function(d,i) {
   stats.select('.date').text(format(d));
-  var filtered = memberDims.joined.filter([0, d]).top(Infinity)
+  var filtered = memberDims.joined.filter([0, +d+aLittleLessThanADay]).top(Infinity)
   stats.select('.total').text(filtered.length + " members so far");
 })
 .append("span")
@@ -132,10 +133,11 @@ fixie.selectAll(".day")
     var a = +membersByDay[i].key;
     var b = +d
     if(a === b) {
-      return format(d) + ": " +  membersByDay[i].value || 0
+      var value = (membersByDay[i].value || 0);
+      return  value + " member" + (value === 1 ? '' : 's') + " joined on " + format(d);
     }
   }
-  return format(d) + ": " + 0;
+  return "0 members joined on " + format(d);
 })
 
 

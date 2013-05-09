@@ -65,6 +65,7 @@ div.node {
   width: 100px;
   height: 20px;
   display:block;
+  cursor: pointer;
 
 }
 .meetup-desc {
@@ -74,6 +75,7 @@ div.node {
   text-align:right;
   font-size: 12px;
   line-height: 22px;
+  cursor:pointer;
 }
 .meetup-desc .name {
   font-weight: 600;
@@ -95,6 +97,7 @@ div.node {
   position: fixed;
   bottom: 20px;
   left: 920px;
+  background: rgba(244, 244,244, 0.8)
 }
 
 .day {
@@ -109,5 +112,7 @@ div.node {
 }
 .day:hover {
   background: rgba(255, 255, 255, 0.7);
-  
+}
+.day:hover {
+  color: black;
 }
