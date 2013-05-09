@@ -17,5 +17,9 @@ http://tributary.io/inlet/5545957 (scrolly)
 
 ## Authors
 
-Ian '@enjalot' Johnson 
-Miles '@milr0c' McCrocklin
+Ian '@enjalot' Johnson   
+Miles '@milr0c' McCrocklin  
+
+Thanks:  
+Kiera '@kierabelle' Westphal  
+EJ '@mrejfox' Fox  
