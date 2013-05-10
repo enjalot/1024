@@ -14,13 +14,20 @@ body {
   display:block;
   background: #040404;
 }
-#header h2 {
+#header .title {
   font-family: Ubuntu;
   font-size: 40px;
-  line-height:10px;
+  font-weight: 700;
+  line-height:80px;
   color: white;
   margin-left: 20px;
-
+}
+#header .subtitle {
+  position:relative;
+  top:0;
+  left:30px;
+  font-family: Ubuntu;
+  color: white;
 }
 #header a, #header a:hover, #header a:visited {
   color: white;
@@ -92,6 +99,11 @@ div.node {
   padding-top: 19px;
   z-index: 999;
   padding:20px;
+}
+
+.binary {
+  font-size: 12px;
+  font-family: 'Courier New';
 }
 
 .fixed {

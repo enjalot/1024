@@ -124,8 +124,18 @@ fixie.selectAll(".day")
   })
 .on("mouseover", function(d,i) {
   stats.select('.date').text(format(d));
-  var filtered = memberDims.joined.filter([0, +d+aLittleLessThanADay]).top(Infinity)
-  stats.select('.total').text(filtered.length + " members so far");
+  var n = memberDims.joined.filter([0, +d+aLittleLessThanADay]).top(Infinity).length
+  stats.select('.total').text(n + " members");
+
+  var binary = n.toString(2);  
+  var bits = binary.length;
+  zeropadding = zeropad(binary.length, 11)
+  binary = zeropadding + binary;
+  stats.select('.binary').text(binary)
+  
+  var diff = Math.floor((d - members[0].joined) / (30 * 24 * 60 * 60 * 1000)) + 1;
+  stats.select('.months').text("in " + diff + " month" + (diff === 1 ? '' : 's'))
+
 })
 .append("span")
 .text(function(d) { 
@@ -265,9 +275,30 @@ function scroller() {
   .style("display", "none")
   
   //stats.select('.event').text(currentEvent);
-  stats.select('.date').text(formatDate(timeScale.invert(scroll+height)));
-  stats.select('.total').text(memberDims.joined.filter([0, y1]).top(Infinity).length + " members so far");
+  var d = timeScale.invert(scroll+height)
+  stats.select('.date').text(formatDate(d));
+  var n = memberDims.joined.filter([0, y1]).top(Infinity).length;
+  stats.select('.total').text(n + " members");
+
+  var binary = n.toString(2);  
+  var bits = binary.length;
+  zeropadding = zeropad(binary.length, 11)
+  binary = zeropadding + binary;
+  stats.select('.binary').text(binary)
+    
+  var diff = Math.floor((d - members[0].joined) / (30 * 24 * 60 * 60 * 1000)) + 1;
+  stats.select('.months').text("in " + diff + " month" + (diff === 1 ? '' : 's'))
+
   
+}
+
+function zeropad(l, p) {
+  //given a number of l digits, give a string of 0s to pad with
+  //so that there is always a multiple of p digits
+  n = l % p;
+  if(n)
+    return d3.range(p - n).map(function() { return "0" }).join("")
+  return "";
 }
 
 
@@ -285,8 +316,8 @@ var force = d3.layout.force()
   .size([target.x, visHeight])
   .nodes(nodes)
   .gravity(0.0001)
-  .charge(getMember(function(d){ return d.radius * 3}))
-  .friction(0.803442944)
+  .charge(getMember(function(d){ return d.radius * 5}))
+  .friction(0.0803442944)
   .on("tick", tick)
   .start();
   
